@@ -133,5 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     loadLanguage(currentLang);
   }
+  loadLanguage(currentLang);
 });
 
