@@ -107,3 +107,31 @@
     
 })(jQuery);
 
+// Translation logic
+const supportedLangs = ['en', 'fr'];
+let currentLang = localStorage.getItem('lang') || 'en';
+
+function loadLanguage(lang) {
+  fetch(`lang/${lang}.json`)
+    .then(response => response.json())
+    .then(translations => {
+      for (const key in translations) {
+        const el = document.getElementById(key);
+        if (el) el.textContent = translations[key];
+      }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const switcher = document.getElementById('languageSwitcher');
+  if (switcher) {
+    switcher.value = currentLang;
+    switcher.addEventListener('change', function() {
+      currentLang = this.value;
+      localStorage.setItem('lang', currentLang);
+      loadLanguage(currentLang);
+    });
+    loadLanguage(currentLang);
+  }
+});
+
